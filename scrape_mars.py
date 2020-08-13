@@ -27,9 +27,9 @@ def scrape():
     html = browser.html
     news_data = BeautifulSoup(html, "html.parser")
     #strip headline
-    news_headline = news_data.find_all('div', class_='content_title')[1].text.strip()
+    news_headline = news_data.find_all('div', class_='content_title')[1].text
     #strip body
-    news_desc = news_data.find_all('div', class_='article_teaser_body')[0].text.strip()
+    news_desc = news_data.find_all('div', class_='article_teaser_body')[0].text
     
     mars_data.update( {
         'news_headline': news_headline,
@@ -59,7 +59,7 @@ def scrape():
         classes='table table-striped table-hover')
 
     mars_data.update({
-        "html tabel": html_table
+        "html_tabel": html_table
     })
 
     browser.visit(hemi_url)
@@ -79,7 +79,7 @@ def scrape():
             {'title': title, 'url': 'https://astrogeology.usgs.gov' + url})
 
     mars_data.update({
-        "hemishere urls": hemi_photos_urls
+        "hemishere_urls": hemi_photos_urls
         })
     
     browser.quit()

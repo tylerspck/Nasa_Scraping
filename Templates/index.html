@@ -12,7 +12,7 @@
 <body>
     <div class="container">
         <div class="jumbotron text-center">
-            <h1>Mars Data</h1>
+            <h1>Mission to Mars</h1>
             <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Lets Find some info about Mars!</a></p>
         </div>
     </div>
@@ -20,7 +20,7 @@
     <div class = "container">
         <div class = "row">
             <div class = "col-md-12">
-                <h2>Lastest News about Mars!</h2>
+                <h2>Lastest Mars News</h2>
                 <h4>{{mars.news_headline}}</h4>
                 <p>{{mars.news_description}}</p>
             </div>
@@ -28,11 +28,37 @@
     </div>
 
     <div class = "container">
-        <h4>Featured Image from JPL</h4>
-        <div class="content">
-            <img scr="{{mars.featured_img}}" alt="Featured Image" style = "width: auto; height: auto;">
+        <div class = "row"> 
+            <h4>Featured Mars Image from JPL</h4>
+            <div class="col-md-8 col-sm-12">
+                <img scr="{{mars.featured_img}}" class = 'img-fluid' alt="Featured Image" style="max-width:100%; max-height: auto;">
+                <div>
+                    <a href="{{mars.featured_img}}">Image Source</a>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="box">
+                    <h4> Mars Facts</h4>
+                </div>
+                <div>
+                    {{mars.html_tabel | safe}}
+                </div>
+            </div>
         </div>
-        <a href="{{mars.featured_img}}">Image Source</a>
+
+        <div class = "row">
+            <div class = col-12>
+                <h2 class = "text-center">Mars Hemispheres</h2>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            {% for img in mars.hemishere_urls %}
+            <div class="card col-md-6 col-sm-12">
+                <img scr="{{img.url}}" alt="{{img.title}}">
+            </div>
+            {% endfor %}
+        </div>
     </div>
 
 
