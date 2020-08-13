@@ -67,16 +67,30 @@ def scrape():
     # Hemisphere images
 
     sleep(1)
+    browser.visit(hemi_url)
+
     html = browser.html
     hemi_image = BeautifulSoup(html, "html.parser")
     hemi_urls = hemi_image.find_all('div', class_='item')
+    links = hemi_image.find_all('div', class_='item')
     hemi_photos_urls = []
+    
+    for x in links:
+        link_base = "https://astrogeology.usgs.gov"
 
-    for x in hemi_urls:
+        img_link = x.find("div", class_="description").a["href"]
         title = x.find('h3').text
-        url = x.find('img', class_='thumb')['src']
+
+        hemilink = link_base + img_link
+
+        browser.visit(hemilink)
+        hemi_html = browser.html
+        hemi_soup = BeautifulSoup(hemi_html, 'html.parser')
+
+        img_url = hemi_soup.find("img", class_="wide-image")["src"]
+
         hemi_photos_urls.append(
-            {'title': title, 'url': 'https://astrogeology.usgs.gov' + url})
+            {'title': title, 'url': 'https://astrogeology.usgs.gov' + img_url})
 
     mars_data.update({
         "hemishere_urls": hemi_photos_urls
